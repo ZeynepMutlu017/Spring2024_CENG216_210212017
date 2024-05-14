@@ -293,6 +293,52 @@ public class messenger_app extends javax.swing.JFrame {
                     }).start();
                }
            }).start();
+
+        }
+        if (jRadioButton1.isSelected())
+        {
+            new Thread(new Runnable()
+            {
+                public void run()
+                {
+
+                    Ip_address = jTextField2.getText();
+                    port_number = Integer.parseInt(jTextField3.getText());
+                    try {
+                        socket = new Socket(Ip_address,port_number);
+                    } catch (IOException ex) {
+                        Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    status = "Connected";
+                    user_name = jTextField1.getText();
+
+                    try {
+                        in = new DataInputStream(socket.getInputStream());
+                    } catch (IOException ex) {
+                        Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        person = in.readUTF();
+                    } catch (IOException ex) {
+                        Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        out = new DataOutputStream(socket.getOutputStream());
+                    } catch (IOException ex) {
+                        Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        out.writeUTF(user_name);
+                    } catch (IOException ex) {
+                        Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+
+
+
+                }
+            }).start();
         }
 
     }//GEN-LAST:event_connect_buttonActionPerformed
