@@ -334,7 +334,35 @@ public class messenger_app extends javax.swing.JFrame {
                         Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
+                    
+                    String message;
 
+                    new Thread(new Runnable()
+                    {
+                        public void run()
+                        {
+
+                            while(true)
+
+                            {
+                                String message = null;
+                                try {
+                                    message =in.readUTF();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                messagebox1.setEditable(true);
+
+                                messagebox1.append(person+": "+message+"\n");
+                                messagebox1.setEditable(false);
+                            }
+
+
+                        }
+
+                    }).start();
+
+       
 
 
                 }
