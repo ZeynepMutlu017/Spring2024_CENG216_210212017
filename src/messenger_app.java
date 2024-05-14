@@ -385,6 +385,42 @@ public class messenger_app extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
+          new Thread(new Runnable()       
+            {
+                public void run()
+                {
+                  
+
+                    if(status == "Connected")
+                    {     
+                            
+                        try {
+                                out = new DataOutputStream(socket.getOutputStream());
+                            } catch (IOException ex) {
+                                Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            String msge = messagebox2.getText();
+                            if(msge.isEmpty())
+                            {
+                            
+                            }
+                            else
+                            {
+                                messagebox2.setText("");
+                                messagebox1.append(user_name+": "+msge+"\n");
+                                try {
+                                    out.writeUTF(msge);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(messenger_app.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                            
+                     }
+ 
+                   
+                }
+            
+            }).start();  
 
     }//GEN-LAST:event_send_buttonActionPerformed
 
